@@ -29,10 +29,6 @@ public class Main {
 		PizzaVO pizza1 = new PizzaVO();
 		PizzaVO pizza2 = new PizzaVO("Pizza Conchita", new String[] {"BBQ-Sauce", "Rinderhack", "Bacon", "rote Zwiebeln", "Mozzarella-Kugeln"} , 9.99f);
 		
-		//TEST
-		//Test 2
-		//Test 3 3
-		//test 4
-		//test 5
+		
 	}
 }
