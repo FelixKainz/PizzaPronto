@@ -3,10 +3,10 @@ package valueObjects;
 import java.time.LocalDate;
 
 public class CustomerVO {
-	public String		firstName,
+	private String		firstName,
 						lastName,
 						gender;
-	public LocalDate 	dateOfBirth;
+	private LocalDate 	dateOfBirth;
 	
 	
 	
@@ -18,27 +18,33 @@ public class CustomerVO {
 	
 	
 	public CustomerVO(String lastName, String firstName, String gender, LocalDate dob) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.gender = gender;
-		this.dateOfBirth = dob;
+		this.setFirstName(firstName);
+		this.setLastName(lastName);;
+		this.setGender(gender);
+		this.setDateOfBirth(dob);
 	}
 	
 	public CustomerVO(String lastName, String firstName, LocalDate dob) {
-		
+		this.setLastName(lastName);
+		this.setFirstName(firstName);
+		this.setDateOfBirth(dob);
 	}
 
 	public CustomerVO() {
-		
+		this(null, null, null, null);
 	}
 	
 	
 	
-	private String dobToString() {
+	public String dobToString() {
+		if(this.dateOfBirth == null)
+			return "";
 		return this.dateOfBirth.toString();
 	}
 
 	public String getFirstName() {
+		if(this.firstName == null)
+			return "";
 		return firstName;
 	}
 
@@ -47,6 +53,8 @@ public class CustomerVO {
 	}
 
 	public String getLastName() {
+		if(this.lastName == null)
+			return "";
 		return lastName;
 	}
 
@@ -55,11 +63,14 @@ public class CustomerVO {
 	}
 
 	public String getGender() {
+		if(this.gender == null)
+			return "undefined";
 		return gender;
 	}
 
 	public void setGender(String gender) {
-		this.gender = gender;
+//		if(gender == "Male" || gender == "Female" || gender == "undefined")				// ??
+			this.gender = gender;
 	}
 
 	public LocalDate getDateOfBirth() {

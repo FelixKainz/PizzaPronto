@@ -1,9 +1,9 @@
 package valueObjects;
 
-import java.awt.Color;			// Color from AWT?!
+import java.awt.Color;
 
 public class ChefVO {
-	public String 	firstName,
+	private String 	firstName,
 					lastName;
 	private Color 	colorApron;
 	
@@ -16,7 +16,7 @@ public class ChefVO {
 	}
 	
 	public ChefVO() {
-
+		this(null, null, null);
 	}
 	
 	

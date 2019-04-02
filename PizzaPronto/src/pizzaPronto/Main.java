@@ -26,9 +26,10 @@ public class Main {
 		CustomerVO customer2 = new CustomerVO("Feuerstein", "Fred", LocalDate.now().minusYears(18));
 		CustomerVO customer3 = new CustomerVO("Panzer", "Paul", "Male", LocalDate.of(1997, 7, 19));
 		
-		PizzaVO pizza1 = new PizzaVO();
-		PizzaVO pizza2 = new PizzaVO("Pizza Conchita", new String[] {"BBQ-Sauce", "Rinderhack", "Bacon", "rote Zwiebeln", "Mozzarella-Kugeln"} , 9.99f);
+		PizzaVO pizzaVO1 = new PizzaVO();
+		PizzaVO pizzaVO2 = new PizzaVO("Pizza Conchita", new String[] {"BBQ-Sauce", "Rinderhack", "Bacon", "rote Zwiebeln", "Mozzarella-Kugeln"} , 9.99f);
 		
-		
+		pizzaVO2.testDriver();
+		customer1.dobToString();
 	}
 }
