@@ -1,5 +1,7 @@
 package valueObjects;
 
+import java.util.Arrays;
+
 public class PizzaVO {
 	private String 		name;
 	private float 		price;
@@ -17,30 +19,69 @@ public class PizzaVO {
 		this(null, null, 0.0f);
 	}
 	
+	@Override
 	public String toString() {
-		String data = this.getName() + '\t' + this.getPrice() + '\t' + listToString(this.getIngredients());
+		String string = this.getName() + '\t' + this.getPrice() + '\t' + listToString();
 		
-		return data;
+		return string;
 	}
 	
-	private static String listToString(String[] list) {
+	private String listToString() {
 		String listAsString = "";
 		
-		for(String entry : list) {
-			listAsString = listAsString + entry + '\t';
+		for(String entry : this.getIngredients()) {
+			listAsString = listAsString + entry + ", ";
 		}
 		
-		return listAsString;
+		return listAsString.substring(0, listAsString.length() - 2);
 	}
 	
 	
 	public void testDriver() {
-		System.out.println("PizzaVO.testDriver".toUpperCase());
+		System.out.println("### PizzaVO.testDriver ###".toUpperCase());
 		
 		this.setPrice(0.0f);
 		System.out.println(this.toString());
 		
-		System.out.println("/PizzaVO.testDriver".toUpperCase());
+		System.out.println("### /PizzaVO.testDriver ###".toUpperCase());
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		try {
+		PizzaVO pizza = (PizzaVO) obj;
+		
+		if(this == obj)
+			return true;
+		if(this.getName() != pizza.getName())
+			return false;
+		if(this.getPrice() != pizza.getPrice())
+			return false;
+		if(!Arrays.equals(this.ingredients, pizza.getIngredients()))
+			return false;
+		
+		return true;
+		}
+		catch(Exception ex) {
+			System.out.println("PizzaVO.equals: Object can not be casted to PizzaVO." + '\t' + ex);
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(ingredients);
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + Float.floatToIntBits(price);
+		return result;
+	}
+	
+	@Override
+	public Object clone() {
+		return new PizzaVO(this.name, this.ingredients, this.price);
 	}
 
 	public String getName() {

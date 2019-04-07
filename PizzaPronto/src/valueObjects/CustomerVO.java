@@ -1,18 +1,21 @@
 package valueObjects;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class CustomerVO {
 	private String		firstName,
 						lastName,
 						gender;
 	private LocalDate 	dateOfBirth;
+	int id;
+	static int nextID = 0;
 	
 	
 	
 //	public static void main(String[] args) {
 //		LocalDate today = LocalDate.now();
-//		LocalDate dob = LocalDate.of(1990,  05,  24);
+//		LocalDate dob = LocalDate.of(1990,  05,  24);	
 //	}
 	
 	
@@ -22,21 +25,54 @@ public class CustomerVO {
 		this.setLastName(lastName);;
 		this.setGender(gender);
 		this.setDateOfBirth(dob);
+		
+		this.id = nextID++;
 	}
 	
 	public CustomerVO(String lastName, String firstName, LocalDate dob) {
 		this.setLastName(lastName);
 		this.setFirstName(firstName);
 		this.setDateOfBirth(dob);
+		
+		this.id = nextID++;
 	}
 
 	public CustomerVO() {
-		this(null, null, null, null);
+		this(null, null, null, null);																// TODO Why this()
+	}
+	
+	private short calculateAge() {
+		if(this.dateOfBirth != null)
+			return (short) Period.between(this.dateOfBirth, LocalDate.now()).getYears();
+		return -1;
+	}
+	
+	@Override
+	public String toString() {
+		return ((Integer)this.getId()).toString() + '\t' + this.getLastName() + '\t' + this.getFirstName() + '\t' + this.getGender() + '\t' + this.dobToString() + '\t' + calculateAge();
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		CustomerVO cust = (CustomerVO) obj;
+		
+		if(this.getId() == cust.getId())
+			return true;
+		
+		return false;
 	}
 	
 	
 	
-	public String dobToString() {
+	@Override
+	public Object clone() {
+		return new CustomerVO(this.lastName, this.firstName, this.gender, this.dateOfBirth);
+	}
+	
+	
+		
+	private String dobToString() {
 		if(this.dateOfBirth == null)
 			return "";
 		return this.dateOfBirth.toString();
@@ -78,8 +114,15 @@ public class CustomerVO {
 	}
 
 	public void setDateOfBirth(LocalDate dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
+		if(dateOfBirth != null)
+			if(Period.between(dateOfBirth, LocalDate.now()).getYears() >= 17)
+				this.dateOfBirth = dateOfBirth;
 	}
-	
-	
+	public int getId() {
+		return id;
+	}
+
+	public static int getNextID() {
+		return nextID;
+	}
 }
